@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "rouchet-shopping-cart",
+    "slug": "rouchet-shopping-cart",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
