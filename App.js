@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
 
 
-const navOptions = ({route}) => ({gi
+const screenOptions = ({route}) => ({
   tabBarIcon : ({ color, size}) => {
     let iconName;
     
@@ -38,38 +38,37 @@ const navOptions = ({route}) => ({gi
     paddingTop: 20,
     paddingBottom: 30,
     height: 100,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-    elevation: 1,
+
   },
   tabBarIconStyle: {
     width: 50,
     height: 50,
   },
+  headerShown: false,
 });
-const headerOptions = {
-  headerStyle: {  
-    backgroundColor: 'white',
-    height: 100,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-    elevation: 1,
-  },
 
+const options = {
+  headerShown: true,
+  headerStyle: {  
+    elevation: 0,
+    shadowOpacity: 0,
+  },
+  headerTintColor: 'seagreen',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+  
 }
+
 
 function App() {
   return (
     <NavigationContainer >
       <StatusBar style="dark" />
-      <Tab.Navigator screenOptions={navOptions}>
-        <Tab.Screen name="Home" component={Home} options={headerOptions}/>
-        <Tab.Screen name="Cart" component={Cart} options={headerOptions}/>
-        <Tab.Screen name="Settings" component={Settings} options={headerOptions} />
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen name="Home" component={Home}/>
+        <Tab.Screen name="Cart" component={Cart} options={options}/>
+        <Tab.Screen name="Settings" component={Settings} options={options}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
