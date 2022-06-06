@@ -1,9 +1,11 @@
 import React from 'react'
-import { View,Pressable,Image,FlatList} from 'react-native'
+import {Pressable,Image,FlatList} from 'react-native'
 
 import styles from '../styles/collections.component'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import fakeData from '../test/data'
 
 const CollectionCard = ({id,name,image,navigation}) => {
   
@@ -13,32 +15,24 @@ const CollectionCard = ({id,name,image,navigation}) => {
     ?
     
       <Pressable 
-        style={({pressed}) => [styles.card,styles.addCard ,pressed ? styles.buttonActive : null] }
+        style={({pressed}) => [styles.card,styles.editCard ,pressed ? styles.cardActive : null] }
         onPress={() => navigation.navigate('Ajout Catégorie',{id})}
       >
         <Ionicons name="add" size={100} color="white" />
       </Pressable>
     :
       <Pressable 
-        style={({pressed}) => [styles.card ,pressed ? styles.buttonActive : null] } 
+        style={({pressed}) => [styles.card ,pressed ? styles.cardActive : null] } 
         onPress={() => navigation.navigate('Catégorie',{id})} 
+        onLongPress={() => navigation.navigate('Modification Catégorie',{id})}
       >
-        <Image style={styles.image} source={require('../assets/images/event-manager.png')} />
+        <Image style={styles.image} source={{uri:image}} />
       </Pressable>
   )
 }
 
 
 const Collections = ({navigation}) => {
-
-  const fakeData = [
-    {id:1,name:'Banana'},
-    {id:2,name:'Apple'},
-    {id:3,name:'Orange'},
-    {id:4,name:'Grape'},
-    {id:5,name:'Strawberry'},
-    {id:6,name:'Mango'},
-  ]
 
   return (
     <FlatList 

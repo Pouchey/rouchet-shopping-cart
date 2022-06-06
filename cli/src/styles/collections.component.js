@@ -4,13 +4,17 @@ StyleSheet.create({
   row: {
     flex: 1,
     justifyContent: "space-around",
-    flexWrap: "wrap",
+  },
+  col:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   card:{
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    margin: 10,
+    margin: 20,
     width: 150,
     height: 150,
     borderRadius: 10,
@@ -23,17 +27,46 @@ StyleSheet.create({
     elevation: 2,
     backgroundColor: 'white',
   },
-  addCard:{
+  editCard:{
     backgroundColor: '#ccc',
   },
   image:{
     width: 150,
     height: 150,
+    resizeMode: 'contain',
+    borderRadius: 10,
   },
-  buttonActive:{
+  cardActive:{
     shadowOpacity: 0,
     elevation: 0,
-  }
+  },
+  input:{
+    width: 200,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    margin: 10,
+    fontSize:15,
+  },
+  label:{
+    fontSize: 20,
+    margin: 10,
+  },
+  button:{
+    width: 150,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'seagreen',
+    margin: 10,
+  },
+  buttonLabel:{
+    color: 'white',
+    fontSize: 30,
+  },
 
 });
 
