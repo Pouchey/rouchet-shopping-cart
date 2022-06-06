@@ -4,13 +4,13 @@ StyleSheet.create({
   row: {
     flex: 1,
     justifyContent: "space-around",
+    flexWrap: "wrap",
   },
   card:{
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    margin: 20,
+    margin: 10,
     width: 150,
     height: 150,
     borderRadius: 10,

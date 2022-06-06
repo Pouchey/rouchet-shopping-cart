@@ -38,17 +38,6 @@ const Collections = ({navigation}) => {
     {id:4,name:'Grape'},
     {id:5,name:'Strawberry'},
     {id:6,name:'Mango'},
-    {id:7,name:'Pineapple'},
-    {id:8,name:'Watermelon'},
-    {id:9,name:'Coconut'},
-    {id:10,name:'Papaya'},
-    {id:11,name:'Pomegranate'},
-    {id:12,name:'Pineapple'},
-    {id:13,name:'Watermelon'},
-    {id:14,name:'Coconut'},
-    {id:15,name:'Papaya'},
-    {id:16,name:'Pomegranate'},
-    {id:17,name:'Pineapple'},
   ]
 
   return (
