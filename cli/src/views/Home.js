@@ -20,6 +20,7 @@ const screenOptions = {
     fontWeight: 'bold',
   },
   hideWhenScrolling: true,
+  swipeEnabled: true,
 }
 
 
