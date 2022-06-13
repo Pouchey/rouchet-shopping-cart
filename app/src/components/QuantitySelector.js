@@ -6,7 +6,7 @@ import styles from '../styles/quantitySelector.component'
 const QuantitySelector = ({value,setValue}) => {
 
   const decrement = () => {
-    if(value > 1){
+    if(value > 0){
       const newValue = parseInt(value) - 1;
       setValue(newValue.toString());
     }
@@ -22,9 +22,9 @@ const QuantitySelector = ({value,setValue}) => {
     if (text.charAt(0) === '0') {
       text = text.substring(1);
     }
-    // If the first character is now an empty string, set it to 1
+    // If the first character is now an empty string, set it to 0
     if (text === '') {
-      text = '1';
+      text = '0';
     }
     // If the value is greater than 99, set it to 99
     if (parseInt(text) > 99) {

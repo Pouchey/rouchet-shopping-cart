@@ -1,6 +1,7 @@
 import React from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
+import Toast,{BaseToast,ErrorToast} from 'react-native-toast-message';
+import { Appearance } from 'react-native';
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import Home from './src/views/Home';
@@ -34,7 +35,7 @@ const screenOptions = ({route}) => ({
   tabBarInactiveTintColor: 'gray',
   tabBarShowLabel : false,
   tabBarStyle: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     paddingTop: 20,
     paddingBottom: 30,
     height: 100,
@@ -60,17 +61,39 @@ const options = {
   
 }
 
+const toastConfig={
+  basic: (props) => (
+    <BaseToast
+      {...props}
+      style={{borderLeftColor:'seagreen',backgroundColor: 'white' }}
+      text1Style={{
+        color: 'black',
+        fontWeight:'400',
+        fontSize: 20,
+      }}
+    />
+  ),
+}
 
 function App() {
+
+  const [appearance, setAppearance] = React.useState(Appearance.getColorScheme());
+
+  Appearance.addChangeListener(({ colorScheme }) => {
+    setAppearance(colorScheme);
+  });
+
   return (
-    <NavigationContainer >
-      <StatusBar style="dark" />
+    <NavigationContainer theme={appearance === 'dark' ? DarkTheme : DefaultTheme }>
+      <StatusBar style={appearance === 'dark' ? 'light' : 'dark'} />
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen name="Home" component={Home}/>
         <Tab.Screen name="Cart" component={Cart} options={options}/>
         <Tab.Screen name="Settings" component={Settings} options={options}/>
       </Tab.Navigator>
+      <Toast config={toastConfig}/>
     </NavigationContainer>
+    
   );
 }
 

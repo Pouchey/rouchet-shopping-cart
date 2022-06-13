@@ -3,8 +3,10 @@
     "name": "rouchet-shopping-cart",
     "slug": "rouchet-shopping-cart",
     "version": "1.0.0",
+    "plugins": ["expo-image-picker"],
     "assetBundlePatterns": [
       "**/*"
     ]
-  }
+  },
+  "ios": {"userInterfaceStyle": "automatic"}
 }

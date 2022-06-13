@@ -33,8 +33,10 @@ StyleSheet.create({
   image:{
     width: 150,
     height: 150,
-    resizeMode: 'contain',
     borderRadius: 10,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cardActive:{
     shadowOpacity: 0,
