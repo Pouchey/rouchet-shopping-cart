@@ -1,8 +1,8 @@
 FROM node:latest
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app
+RUN mkdir /api
+WORKDIR /api
+COPY package.json /api
 RUN npm install
-COPY . /usr/src/app
+COPY . /api
 EXPOSE 5050
-CMD ['node', 'app.js']
+CMD npm run start
