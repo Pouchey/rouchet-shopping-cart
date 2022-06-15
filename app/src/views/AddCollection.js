@@ -56,14 +56,15 @@ const AddCollection = ({navigation}) => {
       body: data,
     })
     .then(res => {
+      DeviceEventEmitter.emit("event.categories");
+      navigation.navigate('Catégories');
       Toast.show({
         type: "success",
         text1: "Catégorie ajoutée",
         topOffset: 50,
         duration: 3000,
       })
-      DeviceEventEmitter.emit("event.categories");
-      navigation.navigate('Catégories');
+
     })
     .catch(err => {
       Toast.show({

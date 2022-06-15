@@ -132,16 +132,20 @@ const delCategorie = (req, res) => {
 const updateCategorie = async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  let filename = req.file.path;
+  let filename;
 
-  const { filename: image } = req.file;
-  await sharp(req.file.path)
-  .resize(200, 200)
-  .jpeg({ quality: 90 })
-  .toFile(`images/resized/${image}`);
-  fs.unlinkSync(req.file.path)
+  // If no file is uploaded, we keep the old image
+  if(req.file){
+    filename = req.file.path;
+    const { filename: image } = req.file;
+    await sharp(req.file.path)
+    .resize(200, 200)
+    .jpeg({ quality: 90 })
+    .toFile(`images/resized/${image}`);
+    fs.unlinkSync(req.file.path)
 
-  filename = `images/resized/${image}`;
+    filename = `images/resized/${image}`;
+  }
 
   Categorie.findOne({ id: id }, (err, data) => {
     if (err) {
@@ -157,6 +161,9 @@ const updateCategorie = async (req, res) => {
       // delete image if it was changed
       if (filename !== data.image) {
         deleteimg(data.image);
+      }
+      else{
+        filename = data.image;
       }
 
       //update categorie
@@ -175,19 +182,19 @@ const updateCategorie = async (req, res) => {
     }
   });
 
-  // if image not already exists, we delete the image
-  Categorie.findOne({image:filename},(err,data)=>{
-    if(err){
-      res.status(500).json({
-        message: "Error while trying to find categorie",
-        error: err
-      });
-    }
-    else if(!data){
-      //delete image if categorie was not saved
-      deleteimg(filename);
-    }
-  })
+  // // if image not already exists, we delete the image
+  // Categorie.findOne({image:filename},(err,data)=>{
+  //   if(err){
+  //     res.status(500).json({
+  //       message: "Error while trying to find categorie",
+  //       error: err
+  //     });
+  //   }
+  //   else if(!data){
+  //     //delete image if categorie was not saved
+  //     deleteimg(filename);
+  //   }
+  // })
 
 }
 
