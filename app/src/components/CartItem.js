@@ -1,17 +1,38 @@
 import { View,Pressable, Text, ImageBackground } from 'react-native'
 import React from 'react'
-
+import {API_URL} from '@env'
 import QuantitySelector from './QuantitySelector'
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from '../styles/cartItem.component'
 
-const CartItem = () => {
+const CartItem = ({item}) => {
 
-  const [item, setItem] = React.useState({name:'Baked beans',price:1.99,quantity:1,image:'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'})
-  const [value, setValue] = React.useState('1')
-  const [image, setImage] = React.useState('https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png')
+  const [value, setValue] = React.useState(item.quantity.toString())
+
+  const updateQuantity = () => {
+    fetch(`${API_URL}/api/item/${item.id}`,{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        quantity: value
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  React.useEffect(() => {
+    updateQuantity();
+  }, [value])
+
 
   return (
     <View style={styles.container}>
@@ -19,7 +40,7 @@ const CartItem = () => {
         // style={({pressed}) => [styles.card,styles.editCard ,pressed ? styles.cardActive : null] }
         // onPress={() => navigation.navigate('Ajout Catégorie',{id})}
       >
-       <ImageBackground style={styles.image} source={{uri:item.image}} imageStyle={styles.image} />
+       <ImageBackground style={styles.image} source={{uri:`${API_URL}/${item.image}?${new Date()/*avoiding cache*/}`}} imageStyle={styles.image} />
       </Pressable>
 
       <Text style={styles.text}> {item.name} </Text>

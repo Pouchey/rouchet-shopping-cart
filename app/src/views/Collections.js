@@ -6,7 +6,7 @@ import styles from '../styles/collections.component'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
+import {API_URL} from '@env'
 
 const CollectionCard = ({id,name,image,navigation,getCategories}) => {
   
@@ -34,7 +34,7 @@ const CollectionCard = ({id,name,image,navigation,getCategories}) => {
           name:name,
         })}
       >
-       {image && <ImageBackground style={styles.image} source={{uri:`http://192.168.1.76:5050/${image}`}} imageStyle={styles.image} />}
+       {image && <ImageBackground style={styles.image} source={{uri:`${API_URL}/${image}?${new Date()/*avoiding cache*/}`}} imageStyle={styles.image} />}
       </Pressable>
   )
 }
@@ -43,9 +43,11 @@ const CollectionCard = ({id,name,image,navigation,getCategories}) => {
 const Collections = ({navigation}) => {
 
   const [categories, setCategories] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const getCategories = () => {
-    fetch('http://192.168.1.76:5050/api/categorie',{
+    setRefreshing(true);
+    fetch(`${API_URL}/api/categories`,{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -59,11 +61,14 @@ const Collections = ({navigation}) => {
       .catch(err => {
         console.log(err)
       })
+      .finally(() => {
+        setRefreshing(false);
+      })
   }
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     getCategories();
-  }, []);
+  }, [navigation]);
 
   DeviceEventEmitter.addListener("event.categories", () => getCategories());
 
@@ -72,7 +77,10 @@ const Collections = ({navigation}) => {
         numColumns={2}                  // set number of columns 
         columnWrapperStyle={styles.row}  // space them out evenly
         initialNumToRender={10}         // set initial number of items to render
+        refreshing={refreshing}         // set refreshing to true to show spinner
+        onRefresh={ () => { getCategories(); }}
         data={[...categories, {id:-1}]}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => 
         <CollectionCard navigation={navigation} id={item.id} name={item.name} image={item.image} getCategories={getCategories}/> 
         }

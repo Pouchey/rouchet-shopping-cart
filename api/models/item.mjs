@@ -7,7 +7,7 @@ const dataSchema = new mongoose.Schema({
     unique: true,
     index: true
   },
-  _categorie: {
+  categorie: {
     type: String,
     required: true
   },
@@ -23,11 +23,11 @@ const dataSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  maxQuantity: {
+  minQuantity: {
     type: Number,
     required: true
   }
   
 })
 
-export default mongoose.model("product", dataSchema)
+export default mongoose.model("Item", dataSchema)

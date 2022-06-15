@@ -7,16 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from "fs";
 import sharp from "sharp";
 
-const deleteimg = (filename) => {
-  fs.unlink(filename, err => {
-    if (err) {
-      console.log(err);
-    }
-  });
-}
-  
-
-
 const getCategories = (req, res) => {
   Categorie.find({})
     .then(categories => {
@@ -47,7 +37,6 @@ const addCategorie = async (req, res) => {
   const { filename: image } = req.file;
   await sharp(req.file.path)
   .resize(200, 200)
-  .jpeg({ quality: 90 })
   .toFile(`images/resized/${image}`);
   fs.unlinkSync(req.file.path)
 
@@ -57,7 +46,8 @@ const addCategorie = async (req, res) => {
   Categorie.findOne({ id: body.id }, (err, data) => {
     if (err) {
       //delete image if categorie was not saved
-      deleteimg(filename);
+      
+  fs.unlink(filename, err => {if (err) {console.log(err);}});(filename);
       res.status(500).json({
         message: "Error while trying to find categorie",
         error: err
@@ -77,8 +67,8 @@ const addCategorie = async (req, res) => {
       //save categorie in db
       categorie.save((err, data) => {
         if (err) {
-          //delete image if categorie was not saved
-          deleteimg(filename);
+          //delete image if categorie was not saved  
+          fs.unlink(filename, err => {if (err) {console.log(err);}});(filename);
           res.status(500).json({
             message: "Error while trying to save categorie",
             error: err
@@ -112,7 +102,8 @@ const delCategorie = (req, res) => {
       });
     } else {
       //delete image
-      deleteimg(data.image);
+      
+  fs.unlink(filename, err => {if (err) {console.log(err);}});(data.image);
       //delete categorie
       Categorie.deleteOne({ id: id }, (err, data) => {
         if (err) {
@@ -140,7 +131,6 @@ const updateCategorie = async (req, res) => {
     const { filename: image } = req.file;
     await sharp(req.file.path)
     .resize(200, 200)
-    .jpeg({ quality: 90 })
     .toFile(`images/resized/${image}`);
     fs.unlinkSync(req.file.path)
 
@@ -160,7 +150,8 @@ const updateCategorie = async (req, res) => {
     } else {
       // delete image if it was changed
       if (filename !== data.image) {
-        deleteimg(data.image);
+        
+  fs.unlink(filename, err => {if (err) {console.log(err);}});(data.image);
       }
       else{
         filename = data.image;
@@ -192,10 +183,11 @@ const updateCategorie = async (req, res) => {
   //   }
   //   else if(!data){
   //     //delete image if categorie was not saved
-  //     deleteimg(filename);
+  //     
+  fs.unlink(filename, err => {if (err) {console.log(err);}});(filename);
   //   }
   // })
 
 }
 
-export { getCategories, addCategorie, delCategorie, updateCategorie };
+export default { getCategories, addCategorie, delCategorie, updateCategorie };

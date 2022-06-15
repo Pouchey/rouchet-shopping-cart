@@ -4,6 +4,7 @@ import DismissKeyboard from '../components/DismissKeyboard'
 import * as ImagePicker from 'expo-image-picker';
 import Toast from 'react-native-toast-message';
 import { DeviceEventEmitter } from 'react-native';
+import {API_URL} from '@env'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/collections.component'
@@ -16,7 +17,7 @@ const AddCollection = ({navigation}) => {
   const [processing, setProcessing] = React.useState(false)
 
 
-  const addCategories = async () => {
+  const addCategories = () => {
 
     setProcessing(true)
     if(imageURI === 'none'){
@@ -48,7 +49,7 @@ const AddCollection = ({navigation}) => {
     });
     data.append('name', name);
     
-    await fetch('http://192.168.1.76:5050/api/categorie', {
+    fetch(`${API_URL}/api/categorie`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

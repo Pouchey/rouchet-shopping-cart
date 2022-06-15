@@ -87,7 +87,7 @@ function App() {
     <NavigationContainer theme={appearance === 'dark' ? DarkTheme : DefaultTheme }>
       <StatusBar style={appearance === 'dark' ? 'light' : 'dark'} />
       <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Home" component={Home}/>
+        <Tab.Screen name="Home" component={Home} options={{ unmountOnBlur: true}}/>
         <Tab.Screen name="Cart" component={Cart} options={options}/>
         <Tab.Screen name="Settings" component={Settings} options={options}/>
       </Tab.Navigator>

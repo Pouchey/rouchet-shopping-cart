@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
 import { DeviceEventEmitter } from 'react-native';
+import {API_URL} from '@env'
 
 import styles from '../styles/collections.component'
 
@@ -18,8 +19,8 @@ const EditCollection = ({route,navigation}) => {
   const [processing, setProcessing] = React.useState(false)
 
 
-  const deleteCollection = async () => {
-    await fetch(`http://192.168.1.76:5050/api/categorie/${id}`, {
+  const deleteCollection =  () => {
+    etch(`${API_URL}/api/categorie/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -40,7 +41,8 @@ const EditCollection = ({route,navigation}) => {
     })
   }
 
-  const editCollection = async () => {
+  const editCollection = () => {
+
     setProcessing(true)
     if(imageURI === 'none'){
       Toast.show({
@@ -72,7 +74,7 @@ const EditCollection = ({route,navigation}) => {
       });
     data.append('name', catName);
 
-    await fetch(`http://192.168.1.76:5050/api/categorie/${id}`, {
+    fetch(`${API_URL}/api/categorie/${id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -99,7 +101,6 @@ const EditCollection = ({route,navigation}) => {
     navigation.setOptions({
       headerRight: () => (
         <Pressable
-          style={styles.headerRight}
           onPress={() => {
             Alert.alert('Delete', 'Are you sure you want to delete this collection?', [
               { text: 'Cancel', style: 'cancel' },
@@ -139,7 +140,7 @@ const EditCollection = ({route,navigation}) => {
         onPress={pickImage}
       >
         
-        <ImageBackground style={styles.image} source={{uri: newImage ? newImage.uri : `http://192.168.1.76:5050/${imageURI}`}} imageStyle={styles.image}>
+        <ImageBackground style={styles.image} source={{uri: newImage ? newImage.uri : `${API_URL}/${imageURI}`}} imageStyle={styles.image}>
           <Ionicons name="image" size={100} color="white" />
         </ImageBackground>
       </Pressable>
@@ -148,7 +149,7 @@ const EditCollection = ({route,navigation}) => {
       <TextInput style={styles.input} value={catName} onChangeText={setCatName} placeholder='Entrer un nom'/>
       <Pressable 
         style={({pressed}) => [styles.button,pressed ? styles.buttonActive : null] }
-        onPress={() => editCollection()}
+        onPress={() => !processing && editCollection()}
         >
           <Text style={styles.buttonLabel}>Modifier</Text>
       </Pressable>
