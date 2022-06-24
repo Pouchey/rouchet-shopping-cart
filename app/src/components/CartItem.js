@@ -4,6 +4,7 @@ import {API_URL} from '@env'
 import QuantitySelector from './QuantitySelector'
 
 import styles from '../styles/cartItem.component'
+import { useTheme } from '@react-navigation/native'
 
 const CartItem = ({item}) => {
 
@@ -33,9 +34,11 @@ const CartItem = ({item}) => {
     updateQuantity();
   }, [value])
 
+  const colors = useTheme().colors;
 
   return (
     <View style={styles.container}>
+      <View style={styles.content}>
       <Pressable 
         // style={({pressed}) => [styles.card,styles.editCard ,pressed ? styles.cardActive : null] }
         // onPress={() => navigation.navigate('Ajout Catégorie',{id})}
@@ -43,9 +46,18 @@ const CartItem = ({item}) => {
        <ImageBackground style={styles.image} source={{uri:`${API_URL}/${item.image}?${new Date()/*avoiding cache*/}`}} imageStyle={styles.image} />
       </Pressable>
 
-      <Text style={styles.text}> {item.name} </Text>
+      <Text style={[styles.label,{color:colors.text}]}> {item.name} </Text>
 
       <QuantitySelector value={value} setValue={setValue}/>
+      </View>
+      {
+      item && item.quantity < item.minQuantity &&
+      <View style={styles.info}>
+        <Text style={styles.text}> 
+          Quantité à acheter : <Text style={[styles.text,styles.bold]}>{ item.minQuantity - item.quantity}</Text>
+        </Text>
+      </View>
+      }
     </View>
   )
 }

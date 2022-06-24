@@ -17,7 +17,8 @@ const getCart = (req, res) => {
           id: item.id,
           name: item.name,
           image: item.image.replace(/\\/g, "/"),
-          quantity: item.quantity
+          quantity: item.quantity,
+          minQuantity: item.minQuantity,
         };
       });
       res.status(200).json(data);

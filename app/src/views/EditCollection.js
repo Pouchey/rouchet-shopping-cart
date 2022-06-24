@@ -8,6 +8,7 @@ import { DeviceEventEmitter } from 'react-native';
 import {API_URL} from '@env'
 
 import styles from '../styles/collections.component'
+import { useTheme } from '@react-navigation/native';
 
 const EditCollection = ({route,navigation}) => {
 
@@ -20,7 +21,7 @@ const EditCollection = ({route,navigation}) => {
 
 
   const deleteCollection =  () => {
-    etch(`${API_URL}/api/categorie/${id}`, {
+    fetch(`${API_URL}/api/categorie/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -131,6 +132,9 @@ const EditCollection = ({route,navigation}) => {
     }
   };
 
+
+  const colors = useTheme().colors;
+
   return (
     <DismissKeyboard>
     <View style={styles.col}>
@@ -145,8 +149,8 @@ const EditCollection = ({route,navigation}) => {
         </ImageBackground>
       </Pressable>
 
-      <Text style={styles.label}>Nom de la catégorie:</Text>
-      <TextInput style={styles.input} value={catName} onChangeText={setCatName} placeholder='Entrer un nom'/>
+      <Text style={[styles.label,{color:colors.text}]}>Nom de la catégorie:</Text>
+      <TextInput style={[styles.input,{color:colors.text}]} value={catName} onChangeText={setCatName} placeholder='Entrer un nom'/>
       <Pressable 
         style={({pressed}) => [styles.button,pressed ? styles.buttonActive : null] }
         onPress={() => !processing && editCollection()}

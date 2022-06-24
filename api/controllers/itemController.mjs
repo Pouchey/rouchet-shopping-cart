@@ -19,7 +19,8 @@ const getItems = (req, res) => {
           id: item.id,
           name: item.name,
           image: item.image.replace(/\\/g, "/"),
-          quantity: item.quantity
+          quantity: item.quantity,
+          minQuantity: item.minQuantity
         };
       });
       res.status(200).json(data);
@@ -40,6 +41,23 @@ const addItem = async (req, res) => {
   }
 
   const body = req.body;
+  //Check that the name is not already used
+  Item.findOne({ name: body.name }, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        message: "Error while checking the name"
+      });
+      return;
+    }
+    if (data) {
+      res.status(400).json({
+        message: "Name already used"
+      });
+      return;
+    }
+  });
+
+
   let filename = req.file.path;
   const { filename: image } = req.file;
   await sharp(req.file.path)
@@ -128,6 +146,21 @@ const updateItem = async (req, res) => {
 
   const { id } = req.params;
   const body = req.body;
+  //Check that the name is not already used
+  Item.findOne({ name: body.name }, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        message: "Error while checking the name"
+      });
+      return;
+    }
+    if (data) {
+      res.status(400).json({
+        message: "Name already used"
+      });
+      return;
+    }
+  });
   let filename;
 
   if (req.file) {

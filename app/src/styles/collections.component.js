@@ -20,7 +20,7 @@ StyleSheet.create({
     borderRadius: 10,
     borderColor: 'gray',
     borderWidth: 1,
-    shadowColor: 'black',
+    // shadowColor: 'black',
     shadowOffset: {width: 0, height: 5},
     shadowRadius: 2,
     shadowOpacity: 0.5,

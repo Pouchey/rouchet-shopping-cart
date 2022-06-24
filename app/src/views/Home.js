@@ -29,7 +29,7 @@ function Home({navigation}) {
   navigation.set
 
   return (
-    <HomeStack.Navigator screenOptions={screenOptions}>
+    <HomeStack.Navigator screenOptions={screenOptions} >
       <HomeStack.Screen name="Catégories" component={Collections} />
       <HomeStack.Screen name="Catégorie" component={Collection}/>
       <HomeStack.Screen name="Ajout Catégorie" component={AddCollection} />

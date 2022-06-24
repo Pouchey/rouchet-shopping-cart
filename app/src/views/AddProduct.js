@@ -84,8 +84,10 @@ const AddProduct = ({navigation,route}) => {
       })
       console.log(err);
     })
+    .finally(() => {
+      setProcessing(false)
+    })
 
-    setProcessing(false)
   }
 
   const pickImage = async () => {

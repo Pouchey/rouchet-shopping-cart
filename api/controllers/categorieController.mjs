@@ -31,8 +31,23 @@ const addCategorie = async (req, res) => {
     });
     return;
   }
-  
   const body = req.body;
+  //Check that the name is not already used
+  Categorie.findOne({ name: body.name }, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        message: "Error while checking the name"
+      });
+      return;
+    }
+    if (data) {
+      res.status(400).json({
+        message: "Name already used"
+      });
+      return;
+    }
+  });
+  
   let filename = req.file.path;
   const { filename: image } = req.file;
   await sharp(req.file.path)
@@ -102,8 +117,8 @@ const delCategorie = (req, res) => {
       });
     } else {
       //delete image
-      
-  fs.unlink(filename, err => {if (err) {console.log(err);}});(data.image);
+      console.log(data)
+      fs.unlink(data.image, err => {if (err) {console.log(err);}});(data.image);
       //delete categorie
       Categorie.deleteOne({ id: id }, (err, data) => {
         if (err) {
@@ -123,6 +138,23 @@ const delCategorie = (req, res) => {
 const updateCategorie = async (req, res) => {
   const id = req.params.id;
   const body = req.body;
+  //Check that the name is not already used
+  Categorie.findOne({ name: body.name }, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        message: "Error while checking the name"
+      });
+      return;
+    }
+    if (data) {
+      res.status(400).json({
+        message: "Name already used"
+      });
+      return;
+    }
+  });
+
+
   let filename;
 
   // If no file is uploaded, we keep the old image
