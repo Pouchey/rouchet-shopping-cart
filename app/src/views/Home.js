@@ -8,6 +8,7 @@ import AddCollection from './AddCollection'
 import EditCollection from './EditCollection'
 import EditProduct from './EditProduct'
 import AddProduct from './AddProduct'
+import { PanGestureHandler } from 'react-native-gesture-handler';
 
 
 const HomeStack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ function Home({navigation}) {
   navigation.set
 
   return (
+    <PanGestureHandler>
     <HomeStack.Navigator screenOptions={screenOptions} >
       <HomeStack.Screen name="Catégories" component={Collections} />
       <HomeStack.Screen name="Catégorie" component={Collection}/>
@@ -37,6 +39,7 @@ function Home({navigation}) {
       <HomeStack.Screen name="Ajout Produit" component={AddProduct} />
       <HomeStack.Screen name="Modification Produit" component={EditProduct} />
     </HomeStack.Navigator>
+    </PanGestureHandler>
   )
 }
 

@@ -41,5 +41,34 @@ StyleSheet.create({
     alignItems: 'center',
     // marginTop: 10,
   },
+  rightAction: {
+    width: 200,
+    height: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: 'gray',
+    borderTopWidth: 1,
+  },
+  deleteAction: {
+    backgroundColor: 'red',
+    width: 100,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  editAction: {
+    backgroundColor: 'seagreen',
+    width: 100,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textAction:{
+    fontSize: 20,
+    color: 'white',
+  }
+
+
 });
 export default styles;

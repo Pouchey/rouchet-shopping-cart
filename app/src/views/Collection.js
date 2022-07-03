@@ -70,7 +70,7 @@ const Collection = ({route,navigation}) => {
         data={products}
         keyExtractor={(item) => item.id.toString()}
         initialNumToRender={10} 
-        renderItem={({item}) => <CartItem item={item}></CartItem>}
+        renderItem={({item}) => <CartItem item={item} navigation={navigation}></CartItem>}
       />
     </View>
   )

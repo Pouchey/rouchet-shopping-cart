@@ -4,8 +4,9 @@ import {API_URL} from '@env'
 import CartItem from '../components/CartItem';
 
 import styles from '../styles/global.component.js'
+import { PanGestureHandler } from 'react-native-gesture-handler';
 
-function Cart() {
+function Cart({navigation}) {
 
   const [products, setProducts] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
@@ -36,6 +37,7 @@ function Cart() {
   }, [])
 
   return (
+    <PanGestureHandler>
     <View style={styles.container}>
 
       <FlatList
@@ -45,10 +47,11 @@ function Cart() {
         onRefresh={ () => { getCart(); }}
         data={products}
         initialNumToRender={10} 
-        renderItem={({item}) => <CartItem item={item}></CartItem>}
+        renderItem={({item}) => <CartItem item={item} navigation={navigation}></CartItem>}
       />
 
     </View>
+    </PanGestureHandler>
   )
 }
 
