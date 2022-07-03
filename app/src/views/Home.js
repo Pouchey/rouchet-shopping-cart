@@ -8,29 +8,34 @@ import AddCollection from './AddCollection'
 import EditCollection from './EditCollection'
 import EditProduct from './EditProduct'
 import AddProduct from './AddProduct'
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { useTheme } from '@react-navigation/native';
 
 
 const HomeStack = createNativeStackNavigator();
 
 
-const screenOptions = {
-  headerShown:true,
-  headerTintColor: 'seagreen',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-  hideWhenScrolling: true,
-  swipeEnabled: true,
-}
+
 
 
 function Home({navigation}) {
 
-  navigation.set
+  
+  const colors = useTheme().colors;
+
+  const screenOptions = {
+    headerShown:true,
+    headerTintColor: 'seagreen',
+    headerStyle:{
+      backgroundColor: colors.bar,
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    hideWhenScrolling: true,
+    swipeEnabled: true,
+  }
 
   return (
-    <PanGestureHandler>
     <HomeStack.Navigator screenOptions={screenOptions} >
       <HomeStack.Screen name="Catégories" component={Collections} />
       <HomeStack.Screen name="Catégorie" component={Collection}/>
@@ -39,7 +44,6 @@ function Home({navigation}) {
       <HomeStack.Screen name="Ajout Produit" component={AddProduct} />
       <HomeStack.Screen name="Modification Produit" component={EditProduct} />
     </HomeStack.Navigator>
-    </PanGestureHandler>
   )
 }
 

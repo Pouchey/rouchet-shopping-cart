@@ -2,38 +2,38 @@ import { View,Pressable, Text, ImageBackground,Animated } from 'react-native'
 import React from 'react'
 import {API_URL} from '@env'
 import QuantitySelector from './QuantitySelector'
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+// import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/cartItem.component'
 import { useTheme } from '@react-navigation/native'
 
 
-const renderRightActions = ({navigation,item}) => {
-  return (
-    <View style={styles.rightAction}>
-      <Pressable style={styles.deleteAction} 
-      >
-        <Ionicons name="trash" size={30} color="white" />
-        <Text style={styles.textAction}>Delete</Text>
-      </Pressable>
-      <Pressable style={styles.editAction}    
-          // Redirect to the edit Product screen
-          onPress={() => navigation.navigate('Home',{screen:'Modification Produit',params:{
-            id:item.id,
-            name:item.name,
-            image:item.image,
-            quantity:item.quantity,
-            minQuantity:item.minQuantity,
-          }
-        })}
-      >
-        <Ionicons name="md-create" size={30} color="white" />
-        <Text style={styles.textAction}>Edit</Text>
-      </Pressable>
-    </View>
-  );
-}
+// const renderRightActions = ({navigation,item}) => {
+//   return (
+//     <View style={styles.rightAction}>
+//       <Pressable style={styles.deleteAction} 
+//       >
+//         <Ionicons name="trash" size={30} color="white" />
+//         <Text style={styles.textAction}>Delete</Text>
+//       </Pressable>
+//       <Pressable style={styles.editAction}    
+//           // Redirect to the edit Product screen
+//           onPress={() => navigation.navigate('Home',{screen:'Modification Produit',params:{
+//             id:item.id,
+//             name:item.name,
+//             image:item.image,
+//             quantity:item.quantity,
+//             minQuantity:item.minQuantity,
+//           }
+//         })}
+//       >
+//         <Ionicons name="md-create" size={30} color="white" />
+//         <Text style={styles.textAction}>Edit</Text>
+//       </Pressable>
+//     </View>
+//   );
+// }
 
 
 const CartItem = ({item,navigation}) => {
@@ -68,7 +68,7 @@ const CartItem = ({item,navigation}) => {
 
 
   return (
-    <Swipeable renderRightActions={() => renderRightActions({navigation,item})}>
+    // <Swipeable renderRightActions={() => renderRightActions({navigation,item})}>
     <View
       style={styles.container}
     >
@@ -93,7 +93,7 @@ const CartItem = ({item,navigation}) => {
       </View>
       }
     </View>
-    </Swipeable>
+    // </Swipeable>
   )
 }
 

@@ -1,4 +1,4 @@
-import { View, Pressable,Text,TextInput,ImageBackground,Alert } from 'react-native'
+import { View, Pressable,Text,TextInput,ImageBackground,Alert,KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import DismissKeyboard from '../components/DismissKeyboard'
 import * as ImagePicker from 'expo-image-picker';
@@ -137,7 +137,10 @@ const EditCollection = ({route,navigation}) => {
 
   return (
     <DismissKeyboard>
-    <View style={styles.col}>
+    <KeyboardAvoidingView
+    
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.col}>
 
       <Pressable 
         style={({pressed}) => [styles.card,styles.editCard ,pressed ? styles.cardActive : null] }
@@ -157,7 +160,7 @@ const EditCollection = ({route,navigation}) => {
         >
           <Text style={styles.buttonLabel}>Modifier</Text>
       </Pressable>
-    </View>
+    </KeyboardAvoidingView>
     </DismissKeyboard>
   )
 }

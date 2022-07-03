@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import {API_URL} from '@env'
 
 const EditProduct = () => {
   return (
-    <View>
+    <KeyboardAvoidingView  
+      behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <Text>EditProduct</Text>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

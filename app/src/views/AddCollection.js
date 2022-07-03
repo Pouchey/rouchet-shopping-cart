@@ -1,4 +1,4 @@
-import { View, Pressable,Text,TextInput,ImageBackground } from 'react-native'
+import { View, Pressable,Text,TextInput,ImageBackground,KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import DismissKeyboard from '../components/DismissKeyboard'
 import * as ImagePicker from 'expo-image-picker';
@@ -99,7 +99,9 @@ const AddCollection = ({navigation}) => {
 
   return (
     <DismissKeyboard>
-    <View style={styles.col}>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.col}>
 
       <Pressable 
         style={({pressed}) => [styles.card,styles.editCard ,pressed ? styles.cardActive : null] }
@@ -119,7 +121,7 @@ const AddCollection = ({navigation}) => {
       >
         <Text style={styles.buttonLabel}>Ajouter</Text>
       </Pressable>
-    </View>
+    </KeyboardAvoidingView>
     </DismissKeyboard>
   )
 }

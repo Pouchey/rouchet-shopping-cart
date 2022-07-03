@@ -4,7 +4,6 @@ import {API_URL} from '@env'
 import CartItem from '../components/CartItem';
 
 import styles from '../styles/global.component.js'
-import { PanGestureHandler } from 'react-native-gesture-handler';
 
 function Cart({navigation}) {
 
@@ -37,7 +36,6 @@ function Cart({navigation}) {
   }, [])
 
   return (
-    <PanGestureHandler>
     <View style={styles.container}>
 
       <FlatList
@@ -51,7 +49,6 @@ function Cart({navigation}) {
       />
 
     </View>
-    </PanGestureHandler>
   )
 }
 
